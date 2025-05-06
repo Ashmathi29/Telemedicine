@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmileCare - Child & Dental Health</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .font-prata {
+      font-family: 'Prata', serif;
+    }
+  </style>
+</head>
+<body class="bg-[#fef9fb] text-gray-900 font-prata">
+  <!-- Header -->
+  <header class="bg-[#570735] text-white px-6 py-4 flex justify-between items-center shadow-md">
+    <h1 class="text-2xl font-bold">SmileCare</h1>
+    <p class="text-sm">Child & Dental TeleHealth</p>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-[#570735] to-black text-white text-center py-12 px-4">
+    <h2 class="text-4xl md:text-5xl font-bold mb-4">Your Family’s Dental & Childcare Partner</h2>
+    <p class="text-lg">Book appointments, order medicines, and chat with our AI health bot</p>
+  </section>
+
+  <!-- Doctor Details -->
+  <section class="py-10 px-6 max-w-6xl mx-auto">
+    <h3 class="text-2xl font-bold mb-4">👩‍⚕️ Doctor Details</h3>
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <p><strong>Dr. Ayesha Mirza</strong> – Pediatric Dentist</p>
+      <p class="text-sm text-gray-600">BDS, MDS – 10+ years of experience</p>
+      <p>Specialized in child oral care, teething support, and preventive dentistry</p>
+    </div>
+  </section>
+
+  <!-- Clinic Info + Timings -->
+  <section class="px-6 max-w-6xl mx-auto">
+    <h3 class="text-2xl font-bold mb-4">🏥 Clinic Info & Timings</h3>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p><strong>SmileCare Clinic</strong></p>
+        <p>123 Dental Lane, Health City</p>
+        <p>Email: smilecare@clinic.com</p>
+        <p>Phone: +91-9876543210</p>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-md">
+        <p><strong>Timings:</strong></p>
+        <ul class="list-disc list-inside">
+          <li>Mon – Fri: 10:00 AM – 6:00 PM</li>
+          <li>Sat: 10:00 AM – 2:00 PM</li>
+          <li>Sun: Closed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Token Booking Section -->
+  <section class="py-10 px-6 max-w-6xl mx-auto font-cinzel">
+    <h3 class="text-2xl font-bold mb-4">📝 Book a Token</h3>
+    <form id="tokenForm" class="bg-white p-6 rounded-lg shadow-md space-y-4 max-w-md">
+      <input type="text" id="name" required placeholder="Patient Name" class="w-full p-2 border border-gray-300 rounded" />
+      <input type="number" id="age" required placeholder="Age" class="w-full p-2 border border-gray-300 rounded" />
+      <input type="date" id="date" required class="w-full p-2 border border-gray-300 rounded" />
+      <select id="slot" required class="w-full p-2 border border-gray-300 rounded">
+        <option value="">Select Time Slot</option>
+        <option>10:00 AM - 10:30 AM</option>
+        <option>11:00 AM - 11:30 AM</option>
+        <option>4:00 PM - 4:30 PM</option>
+        <option>6:00 PM - 7:30 PM</option>
+      </select>
+      <div class="text-gray-800">
+        <p><strong>Consultation Fee:</strong> ₹300</p>
+      </div>
+      <button type="submit" class="bg-[#570735] text-white px-4 py-2 rounded-full hover:bg-pink-600 w-full">
+        Pay & Book
+      </button>
+    </form>
+    <div id="tokenNotification" class="hidden mt-4 p-4 bg-green-100 text-green-800 border border-green-400 rounded">
+      ✅ Your token has been booked successfully!
+    </div>
+  </section>
+
+  <!-- Patient Details -->
+  <div class="max-w-4xl mx-auto bg-white p-6 rounded shadow">
+    <h2 class="text-2xl font-bold mb-4">Patient Report</h2>
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <input type="text" placeholder="Patient Name" class="p-2 border rounded" required />
+      <input type="text" placeholder="Patient ID" class="p-2 border rounded" required />
+      <input type="number" placeholder="Age" class="p-2 border rounded" required />
+      <input type="text" placeholder="Gender" class="p-2 border rounded" required />
+      <textarea placeholder="Diagnosis / Notes" class="p-2 border rounded col-span-1 md:col-span-2" rows="3"></textarea>
+    </form>
+
+    <!-- Medicine Selection -->
+    <h3 class="text-xl font-semibold mb-2">Select Medicines</h3>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+      <!-- 15 medicines -->
+      <label><input type="checkbox" name="medicines" value="Paracetamol" onchange="updateSelectedMedicines()"> Paracetamol</label>
+      <label><input type="checkbox" name="medicines" value="Ibuprofen" onchange="updateSelectedMedicines()"> Ibuprofen</label>
+      <label><input type="checkbox" name="medicines" value="Amoxicillin" onchange="updateSelectedMedicines()"> Amoxicillin</label>
+      <label><input type="checkbox" name="medicines" value="Metformin" onchange="updateSelectedMedicines()"> Metformin</label>
+      <label><input type="checkbox" name="medicines" value="Omeprazole" onchange="updateSelectedMedicines()"> Omeprazole</label>
+      <label><input type="checkbox" name="medicines" value="Ciprofloxacin" onchange="updateSelectedMedicines()"> Ciprofloxacin</label>
+      <label><input type="checkbox" name="medicines" value="Amlodipine" onchange="updateSelectedMedicines()"> Amlodipine</label>
+      <label><input type="checkbox" name="medicines" value="Atorvastatin" onchange="updateSelectedMedicines()"> Atorvastatin</label>
+      <label><input type="checkbox" name="medicines" value="Losartan" onchange="updateSelectedMedicines()"> Losartan</label>
+      <label><input type="checkbox" name="medicines" value="Azithromycin" onchange="updateSelectedMedicines()"> Azithromycin</label>
+      <label><input type="checkbox" name="medicines" value="Cetirizine" onchange="updateSelectedMedicines()"> Cetirizine</label>
+      <label><input type="checkbox" name="medicines" value="Salbutamol" onchange="updateSelectedMedicines()"> Salbutamol</label>
+      <label><input type="checkbox" name="medicines" value="Doxycycline" onchange="updateSelectedMedicines()"> Doxycycline</label>
+      <label><input type="checkbox" name="medicines" value="Pantoprazole" onchange="updateSelectedMedicines()"> Pantoprazole</label>
+      <label><input type="checkbox" name="medicines" value="Clopidogrel" onchange="updateSelectedMedicines()"> Clopidogrel</label>
+    </div>
+
+    <!-- Selected Medicines Display -->
+    <div class="mb-4">
+      <h4 class="font-semibold">Selected Medicines for Payment:</h4>
+      <p id="selectedMedicines" class="text-blue-600"></p>
+    </div>
+
+    <button type="button" onclick="printReport()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        Generate Report & Payment
+      </button>
+      
+  <!-- Footer -->
+  <footer class="bg-[#570735] text-white text-center py-4 mt-10">
+    <p>&copy; 2025 SmileCare. All rights reserved.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    const tokenForm = document.getElementById('tokenForm');
+    const tokenNotification = document.getElementById('tokenNotification');
+    const patientReport = {};
+    const patientList = document.getElementById('patientList');
+
+    tokenForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      tokenNotification.classList.remove('hidden');
+
+      const patientName = document.getElementById('name').value;
+      const patientDate = document.getElementById('date').value;
+
+      if (!patientReport[patientDate]) {
+        patientReport[patientDate] = [];
+      }
+      patientReport[patientDate].push(patientName);
+      updatePatientReport(patientDate);
+
+      tokenForm.reset();
+      setTimeout(() => tokenNotification.classList.add('hidden'), 4000);
+    });
+
+    function updatePatientReport(date) {
+      const patients = patientReport[date] || [];
+      patientList.innerHTML = '';
+      patients.forEach(patient => {
+        const li = document.createElement('li');
+        li.textContent = patient;
+        patientList.appendChild(li);
+      });
+    }
+
+    function updateSelectedMedicines() {
+      const checkboxes = document.querySelectorAll('input[name="medicines"]:checked');
+      const selected = Array.from(checkboxes).map(cb => cb.value);
+      document.getElementById('selectedMedicines').textContent = selected.join(', ');
+    }
+
+    async function printReport() {
+      const { jsPDF } = window.jspdf;
+
+      const name = document.querySelector('input[placeholder="Patient Name"]').value;
+      const id = document.querySelector('input[placeholder="Patient ID"]').value;
+      const age = document.querySelector('input[placeholder="Age"]').value;
+      const gender = document.querySelector('input[placeholder="Gender"]').value;
+      const diagnosis = document.querySelector('textarea[placeholder="Diagnosis / Notes"]').value;
+      const meds = document.getElementById('selectedMedicines').textContent;
+
+      if (!name || !id || !age || !gender || !diagnosis) {
+        alert("Please fill all patient details.");
+        return;
+      }
+
+      const doc = new jsPDF();
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(18);
+      doc.text("SmileCare - Patient Report", 20, 20);
+
+      doc.setFontSize(12);
+      doc.setFont("helvetica", "normal");
+      doc.text(`Patient Name: ${name}`, 20, 40);
+      doc.text(`Patient ID: ${id}`, 20, 50);
+      doc.text(`Age: ${age}`, 20, 60);
+      doc.text(`Gender: ${gender}`, 20, 70);
+      doc.text("Diagnosis / Notes:", 20, 80);
+      doc.text(diagnosis, 30, 90, { maxWidth: 160 });
+
+      doc.text("Prescribed Medicines:", 20, 120);
+      const medsList = meds.split(', ');
+      medsList.forEach((med, i) => {
+        doc.text(`- ${med}`, 30, 130 + i * 10);
+      });
+
+      const pdfBlob = doc.output("blob");
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+      window.open(pdfUrl);
+    }
+  </script>
+</body>
+</html>
